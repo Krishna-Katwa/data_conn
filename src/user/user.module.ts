@@ -19,7 +19,7 @@ import { UserEntity } from './entities/user.entity';
     //TypeOrmModule.forFeature([userEntityRepository,])
   ],
 
-  //controllers: [UserController],
+  controllers: [UserController],
 
   providers: [UserService],
 
