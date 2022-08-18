@@ -19,7 +19,7 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
       {
         name: 'MQTT_SERVICE',
         transport:Transport.MQTT,
-        option: {
+        options: {
         url : 'mqtt://localhost:1883',
         }
       },
