@@ -15,13 +15,14 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
     ConfigModule.forRoot({
       isGlobal: true, //[REQUIRED if want to use .env gloablly among all modules]
     }),
-    ClientsModule.register([{
-      name: 'MQTT_SERVICE',
-      transport : {Transport.MQTT},
-      option: {
+    ClientsModule.register([
+      {
+        name: 'MQTT_SERVICE',
+        transport:Transport.MQTT,
+        option: {
         url : 'mqtt://localhost:1883',
-      }
-    },
+        }
+      },
   ]),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
