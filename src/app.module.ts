@@ -8,6 +8,7 @@ import { TweetModule } from './tweet/tweet.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
+import { ClientsModule, Transport } from '@nestjs/microservices';
 
 @Module({
   imports: [
@@ -16,7 +17,7 @@ import { AuthModule } from './auth/auth.module';
     }),
     ClientsModule.register([{
       name: 'MQTT_SERVICE',
-      transport: Transport.MQTT,
+      transport : {Transport.MQTT},
       option: {
         url : 'mqtt://localhost:1883',
       }
