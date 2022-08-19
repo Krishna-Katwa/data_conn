@@ -1,8 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Observable, from } from 'rxjs';
-import { AuthLoginDto } from 'src/auth/dto/auth-login.dto';
-import { DeleteResult, Repository, UpdateResult } from 'typeorm';
+import { DeleteResult, FindOneOptions, Repository, UpdateResult } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UserEntity } from './entities/user.entity';
 import { UserPost } from './user.interface';
@@ -20,18 +19,18 @@ export class UserService {
     this.users = [
       {
         userId: 1,
-        username: 'john',
-        password: 'cha',
+        username: 'a',
+        password: 'a1',
       },
       {
         userId: 2,
-        username: 'chris',
-        password: 'secret',
+        username: 'b',
+        password: 'b2',
       },
       {
         userId: 3,
-        username: 'maria',
-        password: 'guess',
+        username: 'c',
+        password: 'c3',
       },
     ];
   }
@@ -54,10 +53,10 @@ export class UserService {
     return from(this.UserEntityRepository.find());
   }
 
-  FindOne(id: number): Observable<UserPost> {
-    return from(this.UserEntityRepository.findOneBy({ id }));
-  }
-
+  FindOne(id:any): Promise<UserPost> {
+    return this.UserEntityRepository.findOneBy(id);
+    } 
+ 
   update(id: number, userPost: UserPost): Observable<UpdateResult> {
     return from(this.UserEntityRepository.update(id, userPost));
   }
@@ -65,4 +64,5 @@ export class UserService {
   delete(id: number): Observable<DeleteResult> {
     return from(this.UserEntityRepository.delete(id));
   }
+  
 }

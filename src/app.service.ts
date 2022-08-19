@@ -1,7 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { Transport, ClientProxy } from '@nestjs/microservices';
-import { Client } from 'mqtt';
-import { Observable, scan } from 'rxjs';
+import { ClientProxy } from '@nestjs/microservices';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class AppService {

@@ -29,8 +29,8 @@ export class UserEntity extends BaseEntity {
   @Column()
   password: string;
 
-  @Column()
-  secretid: number;
+  // @Column()
+  // secretid: number;
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAT: Date;

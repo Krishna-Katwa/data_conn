@@ -19,9 +19,9 @@ export class CreateUserDto {
   @IsNotEmpty()
   password: string;
 
-  @IsNotEmpty()
-  @IsNumberString()
-  secretid: number;
+  // @IsNotEmpty()
+  // @IsNumberString()
+  // secretid: number;
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAT: Date;

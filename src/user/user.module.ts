@@ -14,9 +14,7 @@ import { UserEntity } from './entities/user.entity';
       ProfileEntity,
       TweetEntity,
       HashtagEntity,
-      //userEntityRepository,
     ]),
-    //TypeOrmModule.forFeature([userEntityRepository,])
   ],
 
   controllers: [UserController],

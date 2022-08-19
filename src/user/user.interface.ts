@@ -3,7 +3,7 @@ export interface UserPost {
   name: string;
   surname: string;
   email: string;
-  secretid: number;
+  // secretid: number;
   password: string;
   createdAT: Date;
 }

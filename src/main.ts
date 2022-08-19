@@ -4,16 +4,9 @@ import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
-  const app = await NestFactory.createMicroservice<MicroserviceOptions>(AppModule,{
-    transport:Transport.MQTT,
-    options: {
-      hostname: 'broker.mqttdashboard.com',
-      port: 8000,
-      protocol: 'mqtt',
-    }
-  });
-  //app.setGlobalPrefix('users');
+  const app = await NestFactory.create(AppModule);
+  app.setGlobalPrefix('users');
   app.useGlobalPipes(new ValidationPipe({transform: true }));
-  await app.listen();
+  await app.listen(3000);
 }
 bootstrap();

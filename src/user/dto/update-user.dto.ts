@@ -7,6 +7,6 @@ export class UpdateUserDto extends PartialType(CreateUserDto) {
   surname: string;
   email: string;
   password: string;
-  secretid: number;
+  // secretid: number;
   createdAT: Date;
 }

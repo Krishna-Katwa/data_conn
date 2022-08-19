@@ -40,7 +40,7 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
         //    dropSchema:true,
         //    synchronize: true,
       }),
-      // inject:[ConfigService],
+       inject:[ConfigService],
     }),
     AppModule,
     UserModule,
@@ -48,7 +48,6 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
     ProfileModule,
     TweetModule,
     AuthModule,
-    //TypeOrmModule.forFeature([ProfileRepository, ])
   ],
 
   controllers: [
