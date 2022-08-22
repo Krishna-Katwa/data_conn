@@ -13,16 +13,13 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      isGlobal: true, //[REQUIRED if want to use .env gloablly among all modules]
+      isGlobal: true, //[REQUIRED if we want to use .env gloablly among all modules]
     }),
     ClientsModule.register([
       { 
         name: 'TEST_CLIENT',
         transport:Transport.MQTT,
         options: {
-          // hostname: 'localhost',
-          // port: 1883,
-          // protocol: 'mqtt',
           subscribeOptions:{ qos:1 },
           url : 'mqtt://104.198.63.61:1883',
         }
