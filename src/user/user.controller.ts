@@ -17,8 +17,7 @@ import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { Observable } from 'rxjs';
 import { UserPost } from './user.interface';
-import { DeleteResult, FindOneOptions, UpdateResult } from 'typeorm';
-import { UserEntity } from './entities/user.entity';
+import { DeleteResult, UpdateResult } from 'typeorm';
 
 @Controller('/info')
 export class UserController {
@@ -40,10 +39,10 @@ export class UserController {
   }
 
   @Get(':id')
-  findOneBy(@Param('id',
+  findOne(@Param('id',
     new ParseIntPipe({errorHttpStatusCode:HttpStatus.NOT_ACCEPTABLE}),
   )
-   id:number ):  Promise<UserPost> {
+   id:number ) {
     return this.userService.FindOne(+id); 
  }
 

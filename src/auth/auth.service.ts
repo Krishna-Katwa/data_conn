@@ -4,6 +4,9 @@ import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
+  sumDataService(payload: number[]) {
+    throw new Error('Method not implemented.');
+  }
   constructor(
     private readonly userService: UserService,
     private readonly jwtService: JwtService,

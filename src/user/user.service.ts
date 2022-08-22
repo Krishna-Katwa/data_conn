@@ -53,8 +53,8 @@ export class UserService {
     return from(this.UserEntityRepository.find());
   }
 
-  FindOne(id:any): Promise<UserPost> {
-    return this.UserEntityRepository.findOneBy(id);
+  FindOne(id:number): Observable<UserPost> {
+    return from(this.UserEntityRepository.findOneBy({ id }));
     } 
  
   update(id: number, userPost: UserPost): Observable<UpdateResult> {
