@@ -18,18 +18,28 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { Observable } from 'rxjs';
 import { UserPost } from './user.interface';
 import { DeleteResult, UpdateResult } from 'typeorm';
+import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { hash } from 'bcrypt';
+import passport, { Passport } from 'passport';
+import { Hash } from 'crypto';
 
+
+@ApiBearerAuth()
+@ApiTags('cats')
 @Controller('/info')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post()
+  @ApiOperation({ summary: 'Create cat' })
+  @ApiResponse({ status: 403, description: 'Forbidden.' })
   @HttpCode(200)
   @UsePipes(new ValidationPipe({ transform: true }))
   @UseFilters()
   async create(
     @Body() createUserDto: CreateUserDto,
   ): Promise<Observable<CreateUserDto>> {
+     
     return this.userService.create(createUserDto);
   }
 
@@ -39,6 +49,11 @@ export class UserController {
   }
 
   @Get(':id')
+  @ApiResponse({
+    status: 200,
+    description: 'The found record from the DB',
+    type: ApiResponse,  
+  })
   findOne(@Param('id',
     new ParseIntPipe({errorHttpStatusCode:HttpStatus.NOT_ACCEPTABLE}),
   )

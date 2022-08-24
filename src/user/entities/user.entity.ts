@@ -18,10 +18,10 @@ export class UserEntity extends BaseEntity {
   id: number;
 
   @Column()
-  name: string;
-
+  fname: string;
+  
   @Column()
-  surname: string;
+  lname: string;
 
   @Column({ unique: true })
   email: string;

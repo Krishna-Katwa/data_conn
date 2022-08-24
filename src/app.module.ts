@@ -41,7 +41,7 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
         //    dropSchema:true,
         //    synchronize: true,
       }),
-       inject:[ConfigService],
+      //  inject:[ConfigService],
     }),
     AppModule,
     UserModule,
@@ -51,20 +51,8 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
     AuthModule,
   ],
 
-  controllers: [
-    AppController,
-    //UserController,
-    //HashtagController,
-    //ProfileController,
-    //TweetController,
-  ],
+  controllers: [AppController,],
 
-  providers: [
-    AppService,
-    //UserService,
-    //ProfileService,
-    //HashtagService,
-    //TweetService,
-  ],
+  providers: [AppService,],
 })
 export class AppModule {}

@@ -14,16 +14,19 @@ async function bootstrap() {
    await app1.listen();
 
   const app = await NestFactory.create(AppModule);
+
   const config = new DocumentBuilder()
     .setTitle('users example')
     .setDescription('The users API description')
     .setVersion('1.0')
     .addTag('users')
     .build();
-  const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, document);
+  
   app.setGlobalPrefix('users');
   app.useGlobalPipes(new ValidationPipe({transform: true }));
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('api', app, document);
+  
   await app.listen(3000);
-}
-bootstrap();
+  console.log(`Application is running on: ${await app.getUrl()}`);
+} bootstrap();
