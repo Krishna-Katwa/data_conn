@@ -28,10 +28,7 @@ export class UserEntity extends BaseEntity {
 
   @Column()
   password: string;
-
-  // @Column()
-  // secretid: number;
-
+  
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAT: Date;
 
@@ -40,8 +37,12 @@ export class UserEntity extends BaseEntity {
     this.password = await bcrypt.hash(this.password, 8);
   }
 
-  async validatePassword(password: string): Promise<boolean> {
+  async validatePassword(password: string) {
     return bcrypt.compare(password, this.password);
+  }
+
+  async comparePassword(attempt: string) {
+    return await bcrypt.compare(attempt, this.password);
   }
 
   //relations

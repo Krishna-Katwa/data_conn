@@ -14,6 +14,7 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true, //[REQUIRED if we want to use .env gloablly among all modules]
+      cache:true,
     }),
     ClientsModule.register([
       { 
@@ -41,7 +42,6 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
         //    dropSchema:true,
         //    synchronize: true,
       }),
-      //  inject:[ConfigService],
     }),
     AppModule,
     UserModule,

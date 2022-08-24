@@ -12,27 +12,31 @@ import {
   HttpStatus,
   HttpCode,
   UseFilters,
+  UseGuards,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { Observable } from 'rxjs';
 import { UserPost } from './user.interface';
 import { DeleteResult, UpdateResult } from 'typeorm';
-import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { hash } from 'bcrypt';
-import passport, { Passport } from 'passport';
-import { Hash } from 'crypto';
+import { ApiBearerAuth, ApiBody, ApiCookieAuth, ApiCreatedResponse, ApiOkResponse, ApiOperation, ApiResponse, ApiTags, ApiUnauthorizedResponse } from '@nestjs/swagger';
+import { UserEntity } from './entities/user.entity';
+import { AuthGuard } from '@nestjs/passport';
 
 
 @ApiBearerAuth()
-@ApiTags('cats')
+@UseGuards(AuthGuard())
+@ApiTags('users')
 @Controller('/info')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post()
-  @ApiOperation({ summary: 'Create cat' })
-  @ApiResponse({ status: 403, description: 'Forbidden.' })
+  // @ApiUnauthorizedResponse()
+  @ApiBody({type:CreateUserDto })
+  @ApiCookieAuth()
+  @ApiCreatedResponse({description: 'Create users'})
+  @ApiOperation({ summary: 'Create users' })
   @HttpCode(200)
   @UsePipes(new ValidationPipe({ transform: true }))
   @UseFilters()
@@ -44,32 +48,31 @@ export class UserController {
   }
 
   @Get()
+  @ApiOperation({ summary: 'List of all the users' })
+  @ApiOkResponse({ description: 'List of all the users' })
   findAll(): Observable<UserPost[]> {
     return this.userService.findAll();
   }
 
+  
   @Get(':id')
-  @ApiResponse({
-    status: 200,
-    description: 'The found record from the DB',
-    type: ApiResponse,  
-  })
-  findOne(@Param('id',
-    new ParseIntPipe({errorHttpStatusCode:HttpStatus.NOT_ACCEPTABLE}),
-  )
-   id:number ) {
+  @ApiOperation({ summary: 'Users by id' })
+  @ApiOkResponse({ description: 'Users by id' })
+  findOne(@Param('id', new ParseIntPipe({errorHttpStatusCode:HttpStatus.NOT_ACCEPTABLE}),
+  ) id:number ) {
     return this.userService.FindOne(+id); 
  }
 
   @Patch(':id')
-  update(
-    @Param('id',new ParseIntPipe({errorHttpStatusCode:HttpStatus.NOT_ACCEPTABLE}),) id: number,
-    @Body() userPost: UserPost,
-  ): Observable<UpdateResult> {
+  @ApiOperation({ summary: 'Update users' })
+  @ApiCreatedResponse({description: 'Update users'})
+  update(@Param('id',new ParseIntPipe({errorHttpStatusCode:HttpStatus.NOT_ACCEPTABLE}),) id: number, @Body() userPost: UserPost, ): Observable<UpdateResult> {
     return this.userService.update(+id, userPost);
   }
 
   @Delete(':id')
+  @ApiOperation({ summary: 'Delete users' })
+  @ApiCreatedResponse({description: 'Delete users'})
   remove(@Param('id',new ParseIntPipe({errorHttpStatusCode:HttpStatus.NOT_ACCEPTABLE}),) id: number): Observable<DeleteResult> {
     return this.userService.delete(+id);
   }

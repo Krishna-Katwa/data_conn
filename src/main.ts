@@ -25,7 +25,6 @@ async function bootstrap() {
     .addTag('users')
     .build();
   
-  app.setGlobalPrefix('users');
   app.useGlobalPipes(new ValidationPipe({transform: true }));
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('users', app, document);
