@@ -10,13 +10,20 @@ import {
   ParseIntPipe,
   UsePipes,
   ValidationPipe,
+  UseGuards,
 } from '@nestjs/common';
 import { TweetService } from './tweet.service';
 import { Observable } from 'rxjs';
 import { UpdateResult, DeleteResult } from 'typeorm';
 import { TweetPost } from './tweet.interface';
 import { CreateTweetDto } from './dto/create-tweet.dto';
+import { AuthGuard } from '@nestjs/passport';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
+
+@ApiBearerAuth()
+@UseGuards(AuthGuard())
+@ApiTags('Tweet')
 @Controller('tweet')
 export class TweetController {
   constructor(private readonly tweetService: TweetService) {}

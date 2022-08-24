@@ -1,9 +1,15 @@
 import { Controller, Get, Post, Request, UseGuards } from '@nestjs/common';
 import { Ctx, MessagePattern, MqttContext, Payload } from '@nestjs/microservices';
+import { AuthGuard } from '@nestjs/passport';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { AuthService } from './auth/auth.service';
 import { JwtAuthGuard } from './auth/guards/jwtAuth.guard';
 import { LocalAuthGuard } from './auth/guards/localAuth.guard';
 
+
+@ApiBearerAuth()
+@UseGuards(AuthGuard())
+@ApiTags('Auth')
 @Controller('/auth')
 export class AppController {
   constructor(private readonly authService: AuthService,
@@ -26,7 +32,7 @@ export class AppController {
   @UseGuards(JwtAuthGuard)
   @Get('/protect')
   getProtect(@Request() req) {
-    return req.user;
+    return req.user; 
   }
   
 }

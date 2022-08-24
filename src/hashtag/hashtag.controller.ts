@@ -10,13 +10,20 @@ import {
   ValidationPipe,
   HttpStatus,
   ParseIntPipe,
+  UseGuards,
 } from '@nestjs/common';
 import { HashtagService } from './hashtag.service';
 import { Observable } from 'rxjs';
 import { UpdateResult, DeleteResult } from 'typeorm';
 import { CreateHashtagDto } from './dto/create-hashtag.dto';
 import { HashtagPost } from './hashtag.interface';
+import { AuthGuard } from '@nestjs/passport';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
+
+@ApiBearerAuth()
+@UseGuards(AuthGuard())
+@ApiTags('Hashtag')
 @Controller('hashtag')
 export class HashtagController {
   constructor(private readonly hashtagService: HashtagService) {}
