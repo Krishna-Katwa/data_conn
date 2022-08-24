@@ -1,4 +1,8 @@
-import { ConflictException, Injectable, InternalServerErrorException } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  InternalServerErrorException,
+} from '@nestjs/common';
 import { UserService } from '../user/user.service';
 import { JwtService } from '@nestjs/jwt';
 import { CreateUserDto } from 'src/user/dto/create-user.dto';
@@ -14,21 +18,19 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  async register(credential: CreateUserDto):Promise<any> {
-    try{
+  async register(credential: CreateUserDto): Promise<any> {
+    try {
       const user = this.userService.create(credential);
-      await user.subscribe(); 
-      const payload = { username: UserEntity};
+      await user.subscribe();
+      const payload = { username: UserEntity };
       const token = this.jwtService.sign(payload);
       return { ...user, token };
-
-    }catch(err) {
-      if(err.code === '23505') {
+    } catch (err) {
+      if (err.code === '23505') {
         throw new ConflictException('Username has already been taken');
       }
       throw new InternalServerErrorException();
     }
-
   }
 
   async validateUser(username: string, pass: string): Promise<any> {

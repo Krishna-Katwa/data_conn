@@ -20,7 +20,6 @@ import { HashtagPost } from './hashtag.interface';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
-
 @ApiBearerAuth()
 @UseGuards(AuthGuard())
 @ApiTags('Hashtag')

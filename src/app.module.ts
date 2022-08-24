@@ -14,18 +14,18 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true, //[REQUIRED if we want to use .env gloablly among all modules]
-      cache:true,
+      cache: true,
     }),
     ClientsModule.register([
-      { 
+      {
         name: 'TEST_CLIENT',
-        transport:Transport.MQTT,
+        transport: Transport.MQTT,
         options: {
-          subscribeOptions:{ qos:1 },
-          url : 'mqtt://104.198.63.61:1883',
-        }
+          subscribeOptions: { qos: 1 },
+          url: 'mqtt://104.198.63.61:1883',
+        },
       },
-  ]),
+    ]),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => ({
@@ -51,8 +51,8 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
     AuthModule,
   ],
 
-  controllers: [AppController,],
+  controllers: [AppController],
 
-  providers: [AppService,],
+  providers: [AppService],
 })
 export class AppModule {}

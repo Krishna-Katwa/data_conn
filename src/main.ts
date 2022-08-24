@@ -5,17 +5,19 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
-
   //MQTT
-   const app1 = await NestFactory.createMicroservice<MicroserviceOptions>(AppModule, {
-     transport: Transport.MQTT,
-     options: {
-       url: 'mqtt://104.198.63.61',
-     },
-   });
-   await app1.listen();
+  const app1 = await NestFactory.createMicroservice<MicroserviceOptions>(
+    AppModule,
+    {
+      transport: Transport.MQTT,
+      options: {
+        url: 'mqtt://104.198.63.61',
+      },
+    },
+  );
+  await app1.listen();
 
-   //open API ....
+  //open API ....
   const app = await NestFactory.create(AppModule);
 
   const config = new DocumentBuilder()
@@ -24,11 +26,12 @@ async function bootstrap() {
     .setVersion('1.0')
     .addTag('users')
     .build();
-  
-  app.useGlobalPipes(new ValidationPipe({transform: true }));
+
+  app.useGlobalPipes(new ValidationPipe({ transform: true }));
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('users', app, document);
-  
+
   await app.listen(3000);
   console.log(`Application is running on: ${await app.getUrl()}`);
-} bootstrap();
+}
+bootstrap();

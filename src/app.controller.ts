@@ -1,25 +1,28 @@
 import { Controller, Get, Post, Request, UseGuards } from '@nestjs/common';
-import { Ctx, MessagePattern, MqttContext, Payload } from '@nestjs/microservices';
+import {
+  Ctx,
+  MessagePattern,
+  MqttContext,
+  Payload,
+} from '@nestjs/microservices';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { AuthService } from './auth/auth.service';
 import { JwtAuthGuard } from './auth/guards/jwtAuth.guard';
 import { LocalAuthGuard } from './auth/guards/localAuth.guard';
 
-
 @ApiBearerAuth()
 @UseGuards(AuthGuard())
 @ApiTags('Auth')
 @Controller('/auth')
 export class AppController {
-  constructor(private readonly authService: AuthService,
-  ) {}
+  constructor(private readonly authService: AuthService) {}
 
   @MessagePattern('ftf-input')
-  sumData(@Payload() payload: String, @Ctx() context:MqttContext): string{
+  sumData(@Payload() payload: String, @Ctx() context: MqttContext): string {
     console.log('---new msg ${context.getTopic()}---');
-    console.log("Payload: ", payload);
-    console.log("Packet: ", context.getPacket());
+    console.log('Payload: ', payload);
+    console.log('Packet: ', context.getPacket());
     return payload + `response from logData() in -t ${context.getTopic()}`;
   }
 
@@ -32,7 +35,6 @@ export class AppController {
   @UseGuards(JwtAuthGuard)
   @Get('/protect')
   getProtect(@Request() req) {
-    return req.user; 
+    return req.user;
   }
-  
 }

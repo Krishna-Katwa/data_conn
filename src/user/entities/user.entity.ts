@@ -19,7 +19,7 @@ export class UserEntity extends BaseEntity {
 
   @Column()
   fname: string;
-  
+
   @Column()
   lname: string;
 
@@ -28,7 +28,7 @@ export class UserEntity extends BaseEntity {
 
   @Column()
   password: string;
-  
+
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAT: Date;
 

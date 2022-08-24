@@ -24,7 +24,7 @@ export class CreateUserDto {
   @MinLength(4)
   @ApiProperty()
   password: string;
- 
+
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAT: Date;
 }

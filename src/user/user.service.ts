@@ -1,7 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Observable, from } from 'rxjs';
-import { DeleteResult, FindOneOptions, Repository, UpdateResult } from 'typeorm';
+import {
+  DeleteResult,
+  FindOneOptions,
+  Repository,
+  UpdateResult,
+} from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UserEntity } from './entities/user.entity';
 import { UserPost } from './user.interface';
@@ -53,10 +58,10 @@ export class UserService {
     return from(this.UserEntityRepository.find());
   }
 
-  FindOne(id:number): Observable<UserPost> {
+  FindOne(id: number): Observable<UserPost> {
     return from(this.UserEntityRepository.findOneBy({ id }));
-    } 
- 
+  }
+
   update(id: number, userPost: UserPost): Observable<UpdateResult> {
     return from(this.UserEntityRepository.update(id, userPost));
   }
@@ -64,5 +69,4 @@ export class UserService {
   delete(id: number): Observable<DeleteResult> {
     return from(this.UserEntityRepository.delete(id));
   }
-  
 }
