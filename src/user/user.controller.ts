@@ -20,6 +20,7 @@ import { Observable } from 'rxjs';
 import { UserPost } from './user.interface';
 import { DeleteResult, UpdateResult } from 'typeorm';
 import {
+  ApiBadRequestResponse,
   ApiBearerAuth,
   ApiBody,
   ApiCookieAuth,
@@ -61,6 +62,7 @@ export class UserController {
   @Get(':id')
   @ApiOperation({ summary: 'Users by id' })
   @ApiOkResponse({ description: 'Users by id' })
+  @ApiBadRequestResponse({description: 'user not found'})
   findOne(
     @Param(
       'id',

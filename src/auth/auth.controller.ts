@@ -1,5 +1,10 @@
 import { Body, Controller, Post, ValidationPipe } from '@nestjs/common';
-import { ApiBody, ApiCreatedResponse, ApiOkResponse,ApiUnauthorizedResponse } from '@nestjs/swagger';
+import {
+  ApiBody,
+  ApiCreatedResponse,
+  ApiOkResponse,
+  ApiUnauthorizedResponse,
+} from '@nestjs/swagger';
 import { CreateUserDto } from 'src/user/dto/create-user.dto';
 import { AuthResponse, ResponseObject } from 'src/user/user.controller';
 import { AuthService } from './auth.service';

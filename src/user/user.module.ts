@@ -15,6 +15,7 @@ import { UserEntity } from './entities/user.entity';
       TweetEntity,
       HashtagEntity,
     ]),
+    // PassportModule.register({ defaultStrategy: 'jwt' }),
   ],
 
   controllers: [UserController],

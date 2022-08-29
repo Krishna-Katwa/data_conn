@@ -12,7 +12,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(
     @InjectRepository(UserEntity)
     private userentityRepository: Repository<UserEntity>,
-    private authService:AuthService
+    private authService: AuthService,
   ) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
@@ -22,19 +22,21 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(payload: any, done: VerifiedCallback) {
-  const user = await this.authService.validateUser(payload,'pass');
-  try{
-    if (user) {
-      return done(null,user, payload.iat)
-    }else if(user == null){
-      const Terminal = await this.authService.login(payload);
-      return done(null, Terminal, payload.iat)     
-  }else{ done( new HttpException('Unauthorised access', HttpStatus.UNAUTHORIZED),
-  false,
-  );
-  }  
-}catch(error) {
-  return error;
-}
-}
+    const user = await this.authService.validateUser(payload, 'pass');
+    try {
+      if (user) {
+        return done(null, user, payload.iat);
+      } else if (user == null) {
+        const Terminal = await this.authService.login(payload);
+        return done(null, Terminal, payload.iat);
+      } else {
+        done(
+          new HttpException('Unauthorised access', HttpStatus.UNAUTHORIZED),
+          false,
+        );
+      }
+    } catch (error) {
+      return error;
+    }
+  }
 }

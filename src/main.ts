@@ -5,7 +5,6 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
-  
   //MQTT
   const app1 = await NestFactory.createMicroservice<MicroserviceOptions>(
     AppModule,
@@ -26,7 +25,10 @@ async function bootstrap() {
     .setDescription('The users API description')
     .setVersion('1.0.0')
     .addTag('users')
-    .addBearerAuth({ type: 'http', scheme: 'bearer',              bearerFormat: 'Token' },'access-token', )
+    .addBearerAuth(
+      { type: 'http', scheme: 'bearer', bearerFormat: 'Token' },
+      'access-token',
+    )
     .build();
 
   app.useGlobalPipes(new ValidationPipe({ transform: true }));
