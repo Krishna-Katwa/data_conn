@@ -12,7 +12,6 @@ import {
   HttpStatus,
   HttpCode,
   UseFilters,
-  UseGuards,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -29,7 +28,6 @@ import {
   ApiOperation,
   ApiTags,
 } from '@nestjs/swagger';
-import { AuthGuard } from '@nestjs/passport';
 
 @ApiBearerAuth()
 // @UseGuards(AuthGuard('jwt'))
