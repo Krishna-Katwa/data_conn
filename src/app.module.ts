@@ -28,6 +28,7 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
     ]),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
+
       useFactory: async (configService: ConfigService) => ({
         type: process.env.DB_TYPE as any,
         host: process.env.DB_HOST,
@@ -42,6 +43,7 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
         //    dropSchema:true,
         //    synchronize: true,
       }),
+      inject: [ConfigService],
     }),
     AppModule,
     UserModule,

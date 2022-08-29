@@ -1,20 +1,13 @@
-import { Controller, Get, Post, Request, UseGuards } from '@nestjs/common';
+import { Controller } from '@nestjs/common';
 import {
   Ctx,
   MessagePattern,
   MqttContext,
   Payload,
 } from '@nestjs/microservices';
-import { AuthGuard } from '@nestjs/passport';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { AuthService } from './auth/auth.service';
-import { JwtAuthGuard } from './auth/guards/jwtAuth.guard';
-import { LocalAuthGuard } from './auth/guards/localAuth.guard';
 
-@ApiBearerAuth()
-@UseGuards(AuthGuard())
-@ApiTags('Auth')
-@Controller('/auth')
+@Controller('MQTT')
 export class AppController {
   constructor(private readonly authService: AuthService) {}
 
@@ -24,17 +17,5 @@ export class AppController {
     console.log('Payload: ', payload);
     console.log('Packet: ', context.getPacket());
     return payload + `response from logData() in -t ${context.getTopic()}`;
-  }
-
-  @UseGuards(LocalAuthGuard)
-  @Post('/login')
-  async login(@Request() req) {
-    return this.authService.login(req.user);
-  }
-
-  @UseGuards(JwtAuthGuard)
-  @Get('/protect')
-  getProtect(@Request() req) {
-    return req.user;
   }
 }

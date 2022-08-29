@@ -26,22 +26,18 @@ import {
   ApiCreatedResponse,
   ApiOkResponse,
   ApiOperation,
-  ApiResponse,
   ApiTags,
-  ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
-import { UserEntity } from './entities/user.entity';
 import { AuthGuard } from '@nestjs/passport';
 
 @ApiBearerAuth()
-@UseGuards(AuthGuard())
+// @UseGuards(AuthGuard('jwt'))
 @ApiTags('users')
 @Controller('/info')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post()
-  // @ApiUnauthorizedResponse()
   @ApiBody({ type: CreateUserDto })
   @ApiCookieAuth()
   @ApiCreatedResponse({ description: 'Create users' })
@@ -102,3 +98,17 @@ export class UserController {
     return this.userService.delete(+id);
   }
 }
+
+export interface UserResponse {
+  fname: string;
+  lnmae: string;
+  email: string;
+  password: string;
+}
+export interface AuthResponse extends UserResponse {
+  token: string;
+}
+
+export type ResponseObject<K extends string, T> = {
+  [P in K]: T;
+};

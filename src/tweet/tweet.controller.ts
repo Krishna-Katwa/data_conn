@@ -17,11 +17,11 @@ import { Observable } from 'rxjs';
 import { UpdateResult, DeleteResult } from 'typeorm';
 import { TweetPost } from './tweet.interface';
 import { CreateTweetDto } from './dto/create-tweet.dto';
-import { AuthGuard } from '@nestjs/passport';
+import { AuthGuard, PassportModule } from '@nestjs/passport';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
 @ApiBearerAuth()
-@UseGuards(AuthGuard())
+// @UseGuards(AuthGuard('jwt'))
 @ApiTags('Tweet')
 @Controller('tweet')
 export class TweetController {

@@ -5,7 +5,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { TweetEntity } from './entities/tweet.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([TweetEntity])],
+  imports: [
+    TypeOrmModule.forFeature([TweetEntity]),
+    // PassportModule.register({ defaultStrategy: 'jwt' }),
+  ],
   controllers: [TweetController],
   providers: [TweetService],
 })

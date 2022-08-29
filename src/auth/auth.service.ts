@@ -48,10 +48,5 @@ export class AuthService {
       access_token: this.jwtService.sign(payload),
     };
   }
-
-  //async create(UserEntity:any){
-  // const payload = {username:UserEntity.upsert.name,
-  //sub:UserEntity.create(UserEntity)
-  //}
-  //return {acces_token: this.jwtService.sign(payload)}
 }
+ 

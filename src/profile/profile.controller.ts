@@ -17,11 +17,10 @@ import { CreateProfileDto } from './dto/create-profile.dto';
 import { Observable } from 'rxjs';
 import { UpdateResult, DeleteResult } from 'typeorm';
 import { ProfilePost } from './profile.interface';
-import { AuthGuard } from '@nestjs/passport';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
 @ApiBearerAuth()
-@UseGuards(AuthGuard())
+// @UseGuards(AuthGuard('jwt'))
 @ApiTags('Profile')
 @Controller('profile')
 export class ProfileController {
