@@ -26,7 +26,7 @@ export class AuthService {
         lname: '',
         email: '',
         password: '',
-        createdAT: undefined
+        createdAT: undefined,
       });
       await user.subscribe();
       const payload = { username: UserEntity };

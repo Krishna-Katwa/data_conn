@@ -18,7 +18,6 @@ import { CreateHashtagDto } from './dto/create-hashtag.dto';
 import { HashtagPost } from './hashtag.interface';
 import { ApiBearerAuth, ApiCookieAuth, ApiTags } from '@nestjs/swagger';
 
-
 @ApiTags('Hashtag')
 @Controller('hashtag')
 export class HashtagController {

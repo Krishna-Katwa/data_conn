@@ -21,7 +21,7 @@ export class AuthController {
   ): Promise<ResponseObject<'user', AuthResponse>> {
     const user = await this.authService.register(credential);
     return { user };
-  } 
+  }
 
   @Post('/login')
   @ApiOkResponse({ description: 'User Login succesful' })

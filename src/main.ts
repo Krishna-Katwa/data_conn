@@ -24,7 +24,7 @@ async function bootstrap() {
     .setTitle('users example')
     .setDescription('The users API description')
     .setVersion('1.0.0')
-    .addTag('Users')  //optional
+    .addTag('Users') //optional
     .addBearerAuth(
       { type: 'http', scheme: 'bearer', bearerFormat: 'Token' },
       'access-token',

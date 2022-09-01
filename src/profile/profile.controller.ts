@@ -19,7 +19,6 @@ import { UpdateResult, DeleteResult } from 'typeorm';
 import { ProfilePost } from './profile.interface';
 import { ApiBearerAuth, ApiCookieAuth, ApiTags } from '@nestjs/swagger';
 
-
 // @UseGuards(AuthGuard('jwt'))
 @ApiTags('Profile')
 @Controller('profile')

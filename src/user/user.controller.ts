@@ -29,9 +29,8 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 
-
 // @UseGuards(AuthGuard('jwt'))
- @ApiTags('Users')
+@ApiTags('Users')
 @Controller('/info')
 export class UserController {
   constructor(private readonly userService: UserService) {}
@@ -64,7 +63,7 @@ export class UserController {
   @Get(':id')
   @ApiOperation({ summary: 'Users by id' })
   @ApiOkResponse({ description: 'Users by id' })
-  @ApiBadRequestResponse({description: 'user not found'})
+  @ApiBadRequestResponse({ description: 'user not found' })
   findOne(
     @Param(
       'id',

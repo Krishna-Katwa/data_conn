@@ -20,7 +20,6 @@ import { CreateTweetDto } from './dto/create-tweet.dto';
 import { AuthGuard, PassportModule } from '@nestjs/passport';
 import { ApiBearerAuth, ApiCookieAuth, ApiTags } from '@nestjs/swagger';
 
-
 // @UseGuards(AuthGuard('jwt'))
 @ApiTags('Tweet')
 @Controller('tweet')
