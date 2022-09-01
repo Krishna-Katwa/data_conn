@@ -18,9 +18,9 @@ import { UpdateResult, DeleteResult } from 'typeorm';
 import { TweetPost } from './tweet.interface';
 import { CreateTweetDto } from './dto/create-tweet.dto';
 import { AuthGuard, PassportModule } from '@nestjs/passport';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiCookieAuth, ApiTags } from '@nestjs/swagger';
 
-@ApiBearerAuth()
+
 // @UseGuards(AuthGuard('jwt'))
 @ApiTags('Tweet')
 @Controller('tweet')
@@ -35,11 +35,15 @@ export class TweetController {
     return this.tweetService.create(createTweetDto);
   }
 
+  @ApiBearerAuth()
+  @ApiCookieAuth()
   @Get()
   findAll(): Observable<TweetPost[]> {
     return this.tweetService.findAll();
   }
 
+  @ApiBearerAuth()
+  @ApiCookieAuth()
   @Get(':id')
   findOne(
     @Param(
@@ -52,6 +56,8 @@ export class TweetController {
     return this.tweetService.FindOne(+id);
   }
 
+  @ApiBearerAuth()
+  @ApiCookieAuth()
   @Patch(':id')
   update(
     @Param('id') id: number,
@@ -60,6 +66,8 @@ export class TweetController {
     return this.tweetService.update(+id, tweetPost);
   }
 
+  @ApiBearerAuth()
+  @ApiCookieAuth()
   @Delete(':id')
   remove(@Param('id') id: number): Observable<DeleteResult> {
     return this.tweetService.delete(+id);

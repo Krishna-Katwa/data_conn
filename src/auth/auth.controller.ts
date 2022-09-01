@@ -5,7 +5,6 @@ import {
   ApiOkResponse,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
-import { CreateUserDto } from 'src/user/dto/create-user.dto';
 import { AuthResponse, ResponseObject } from 'src/user/user.controller';
 import { AuthService } from './auth.service';
 import { AuthLoginDto } from './dto/auth-login.dto';
@@ -16,16 +15,16 @@ export class AuthController {
 
   @Post('/users')
   @ApiCreatedResponse({ description: 'User Registration' })
-  @ApiBody({ type: CreateUserDto })
+  @ApiBody({ type: AuthLoginDto })
   async register(
-    @Body(ValidationPipe) credential: CreateUserDto,
+    @Body(ValidationPipe) credential: AuthLoginDto,
   ): Promise<ResponseObject<'user', AuthResponse>> {
     const user = await this.authService.register(credential);
     return { user };
-  }
+  } 
 
   @Post('/login')
-  @ApiOkResponse({ description: 'User Login' })
+  @ApiOkResponse({ description: 'User Login succesful' })
   @ApiUnauthorizedResponse({ description: 'Invalid inputs/credentials' })
   @ApiBody({ type: AuthLoginDto })
   async login(

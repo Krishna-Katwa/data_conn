@@ -29,16 +29,16 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 
-@ApiBearerAuth()
+
 // @UseGuards(AuthGuard('jwt'))
-@ApiTags('users')
+ @ApiTags('Users')
 @Controller('/info')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post()
   @ApiBody({ type: CreateUserDto })
-  @ApiCookieAuth()
+  // @ApiCookieAuth()
   @ApiCreatedResponse({ description: 'Create users' })
   @ApiOperation({ summary: 'Create users' })
   @HttpCode(200)
@@ -50,6 +50,8 @@ export class UserController {
     return this.userService.create(createUserDto);
   }
 
+  @ApiBearerAuth()
+  @ApiCookieAuth()
   @Get()
   @ApiOperation({ summary: 'List of all the users' })
   @ApiOkResponse({ description: 'List of all the users' })
@@ -57,6 +59,8 @@ export class UserController {
     return this.userService.findAll();
   }
 
+  @ApiBearerAuth()
+  @ApiCookieAuth()
   @Get(':id')
   @ApiOperation({ summary: 'Users by id' })
   @ApiOkResponse({ description: 'Users by id' })
@@ -71,6 +75,8 @@ export class UserController {
     return this.userService.FindOne(+id);
   }
 
+  @ApiBearerAuth()
+  @ApiCookieAuth()
   @Patch(':id')
   @ApiOperation({ summary: 'Update users' })
   @ApiCreatedResponse({ description: 'Update users' })
@@ -85,6 +91,8 @@ export class UserController {
     return this.userService.update(+id, userPost);
   }
 
+  @ApiBearerAuth()
+  @ApiCookieAuth()
   @Delete(':id')
   @ApiOperation({ summary: 'Delete users' })
   @ApiCreatedResponse({ description: 'Delete users' })

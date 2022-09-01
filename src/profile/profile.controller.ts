@@ -17,9 +17,9 @@ import { CreateProfileDto } from './dto/create-profile.dto';
 import { Observable } from 'rxjs';
 import { UpdateResult, DeleteResult } from 'typeorm';
 import { ProfilePost } from './profile.interface';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiCookieAuth, ApiTags } from '@nestjs/swagger';
 
-@ApiBearerAuth()
+
 // @UseGuards(AuthGuard('jwt'))
 @ApiTags('Profile')
 @Controller('profile')
@@ -34,11 +34,15 @@ export class ProfileController {
     return this.profileService.create(createProfileDto);
   }
 
+  @ApiBearerAuth()
+  @ApiCookieAuth()
   @Get()
   findAll(): Observable<ProfilePost[]> {
     return this.profileService.findAll();
   }
 
+  @ApiBearerAuth()
+  @ApiCookieAuth()
   @Get(':id')
   findOne(
     @Param(
@@ -51,6 +55,8 @@ export class ProfileController {
     return this.profileService.FindOne(+id);
   }
 
+  @ApiBearerAuth()
+  @ApiCookieAuth()
   @Patch(':id')
   update(
     @Param('id') id: number,
@@ -59,6 +65,8 @@ export class ProfileController {
     return this.profileService.update(+id, profilePost);
   }
 
+  @ApiBearerAuth()
+  @ApiCookieAuth()
   @Delete(':id')
   remove(@Param('id') id: number): Observable<DeleteResult> {
     return this.profileService.delete(+id);

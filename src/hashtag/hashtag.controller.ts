@@ -16,11 +16,9 @@ import { Observable } from 'rxjs';
 import { UpdateResult, DeleteResult } from 'typeorm';
 import { CreateHashtagDto } from './dto/create-hashtag.dto';
 import { HashtagPost } from './hashtag.interface';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiCookieAuth, ApiTags } from '@nestjs/swagger';
 
-@ApiBearerAuth()
-// @UseGuards(AuthGuard())
-// @UseGuards(new OptionalAuthGuard())
+
 @ApiTags('Hashtag')
 @Controller('hashtag')
 export class HashtagController {
@@ -34,11 +32,15 @@ export class HashtagController {
     return this.hashtagService.create(createHashtagDto);
   }
 
+  @ApiBearerAuth()
+  @ApiCookieAuth()
   @Get()
   findAll(): Observable<HashtagPost[]> {
     return this.hashtagService.findAll();
   }
 
+  @ApiBearerAuth()
+  @ApiCookieAuth()
   @Get(':id')
   findOne(
     @Param(
@@ -51,6 +53,8 @@ export class HashtagController {
     return this.hashtagService.FindOne(+id);
   }
 
+  @ApiBearerAuth()
+  @ApiCookieAuth()
   @Patch(':id')
   update(
     @Param('id', new ParseIntPipe()) id: number,
@@ -59,6 +63,8 @@ export class HashtagController {
     return this.hashtagService.update(+id, hashtagPost);
   }
 
+  @ApiBearerAuth()
+  @ApiCookieAuth()
   @Delete(':id')
   remove(@Param('id') id: number): Observable<DeleteResult> {
     return this.hashtagService.delete(+id);

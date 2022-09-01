@@ -24,7 +24,7 @@ async function bootstrap() {
     .setTitle('users example')
     .setDescription('The users API description')
     .setVersion('1.0.0')
-    .addTag('users')
+    .addTag('Users')  //optional
     .addBearerAuth(
       { type: 'http', scheme: 'bearer', bearerFormat: 'Token' },
       'access-token',
@@ -33,7 +33,7 @@ async function bootstrap() {
 
   app.useGlobalPipes(new ValidationPipe({ transform: true }));
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('users', app, document);
+  SwaggerModule.setup('user', app, document);
 
   await app.listen(3000);
   console.log(`Application is running on: ${await app.getUrl()}`);
